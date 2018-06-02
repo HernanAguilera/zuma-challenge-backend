@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load filters %}
+
+{% block content %}
+<h2>Nuevo elemento</h2>
+<form method="POST">
+    {% csrf_token %}
+    <div>
+        {% if form.errors and form.non_field_errors %}
+            <div class='alert alert-danger' role="alert">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+            
+        {% for field in form %}
+            <div class="col">
+                {{field.label_tag}}
+                {{field|bootstrap_class}}
+                {% if field.error %}
+                    <div class='alert alert-danger' role="alert"> {{ field.errors }} </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    <hr>
+    <a class="btn btn-secondary" href="/">Regresar</a>
+    <input class="btn btn-primary" type="submit" value="Almacenar">
+</form>
+{% endblock content %}

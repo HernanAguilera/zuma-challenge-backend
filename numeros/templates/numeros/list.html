@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<h1>Listado <a class="btn btn-success" href="/create">Agrear nuevo elemento</a></h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Colección</th>
+            <th></th>
+        </tr>
+    </thead>
+    
+    {% for element in elements %}
+        <tr>
+            <td>{{element.number_1}}, {{element.number_2}}, {{element.number_3}}, {{element.number_4}}</td>
+            <td>
+                <a class="btn btn-sm btn-info" href="/{{element.id}}">Ver</a>
+                <a class="btn btn-sm btn-warning" href="/{{element.id}}/edit">Editar</a>
+                <a class="btn btn-sm btn-danger" href="/{{element.id}}/delete">Eliminar</a>
+            </td>
+        </tr>
+    {% endfor %}
+        
+</table>
+{% endblock content %}
+    

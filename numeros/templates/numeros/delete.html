@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>:{{object.id}}</h2>
+  <form method="POST">
+      {% csrf_token %}
+      <h3>¿Confirma que desea eliminar este elemento?</h3>
+      <h5>{{object.number_1}}, {{object.number_2}}, {{object.number_3}}, {{object.number_4}}</h5>
+      <hr>
+      <a class="btn btn-secondary" href="/">Regresar</a>
+      <input class="btn btn-danger" type="submit" value="Eliminar">
+  </form>
+{% endblock content %}

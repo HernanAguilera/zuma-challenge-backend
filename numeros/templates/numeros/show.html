@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>:{{object.id}}</h2>
+    <table id="tabla" class="table table-bordered">
+        <tbody>
+            <tr>
+                <td id="status">La tabla NO está ordenada</td>
+                <td><a id="ordenar" class="btn btn-sm btn-info" href="#">¿Quiere ordenar Descendente?</a></td>
+            </tr>
+            <tr>
+                <th>Numero 1:</th>
+                <td>{{object.number_1}}</td>
+            </tr>
+            <tr>
+                <th>Numero 2:</th>
+                <td>{{object.number_2}}</td>
+            </tr>
+            <tr>
+                <th>Numero 3:</th>
+                <td>{{object.number_3}}</td>
+            </tr>
+            <tr>
+                <th>Numero 4:</th>
+                <td>{{object.number_4}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <a class="btn btn-secondary" href="/">Regresar</a>
+    </div>
+{% endblock content %}
+
+{% block javascript %}
+  <script>
+      var order = 'desc';
+      var tbody = document.getElementById('tabla').children[0]
+      var trs = tbody.children;
+      
+      var ordernar = function(e) {
+        for(var i=1;i<trs.length;i++){
+            for(var j=i+1;j<trs.length;j++){
+                var a_num = parseFloat(trs[i].children[1].textContent)
+                var b_num = parseFloat(trs[j].children[1].textContent)
+                if ( (order == 'desc' && a_num<b_num) || (order == 'asc' && a_num>b_num) )
+                {
+                    var temp = trs[j]
+                    tbody.removeChild(trs[j])
+                    tbody.insertBefore(temp, trs[i])
+                }
+            }
+          }
+          order = order == 'desc' ? 'asc' : 'desc';
+          e.target.textContent = order == 'desc' ? '¿Quiere ordenar Descendente?' : '¿Quiere ordenar Ascendente?';
+          document.getElementById('status').textContent = order == 'desc' ? 'La tabla está ordenada ascendentemente' : 'La tabla está ordenada descedentemente'
+      }
+
+      var boton = document.getElementById('ordenar')
+      boton.addEventListener('click', ordernar)
+  </script>
+{% endblock javascript %}
